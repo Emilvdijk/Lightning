@@ -92,7 +92,7 @@ public class App {
       System.out.println(
           "If the thundercloud continues at this speed it will reach you in " + eTA
               + " seconds.");
-      System.out.println("measurement amount:" + count++);
+      System.out.println("measurement amount:" + ++count);
 
 
     } while (true);
