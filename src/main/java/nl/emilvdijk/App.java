@@ -10,9 +10,17 @@ import java.util.Scanner;
 public class App {
 
   public static void main(String[] args) throws IOException {
-    double timeBetweenTAndL, distanceFromBolt, timeBetweenMeasurements, distanceBetweenMeasurements, cloudSpeed, eTA, previousDistance;
-    int count = 0;
     Scanner myScanner = new Scanner(System.in);
+    double timeBetweenTAndL;
+    double distanceFromBolt;
+    double timeBetweenMeasurements;
+    double distanceBetweenMeasurements;
+    double cloudSpeed;
+    double eTA;
+    double previousDistance;
+    double unitModifier;
+    String unitText;
+    int count = 1;
     char units;
 
     do {
@@ -25,32 +33,27 @@ public class App {
       } while (ignore != '\n');
     } while (!(units == 'F' | units == 'M'));
 
-    do {
+    if (units == 'M') {
+      unitModifier = 1;
+      unitText = " meters";
+    } else {
+      unitModifier = 3.2808399;
+      unitText = " feet";
+    }
 
-      //get time between lightning and thunder and calculate distance
-      System.out.println(
-          "\nPlease enter the time between the lightning and the thunder in seconds:\n");
-      timeBetweenTAndL = myScanner.nextDouble();
-      distanceFromBolt = timeBetweenTAndL * 343;
-      previousDistance = distanceFromBolt;
+    //get time between lightning and thunder and calculate distance
+    System.out.println(
+        "\nPlease enter the time between the lightning and the thunder in seconds:\n");
+    timeBetweenTAndL = myScanner.nextDouble();
+    distanceFromBolt = timeBetweenTAndL * 343;
+    previousDistance = distanceFromBolt;
 
-      //output the measurement in the appropriate units
-      switch (units) {
-        case 'M':
-          System.out.println(
-              "The distance between you and the lightning is:" + distanceFromBolt
-                  + " meters.");
-          break;
-        case 'F':
-          System.out.println(
-              "The distance between you and the lightning is:"
-                  + distanceFromBolt * 3.2808399
-                  + " feet.");
-          break;
-      }
-      count++;
+    //output the measurement in the appropriate units
 
-    } while (count < 1);
+    System.out.println(
+        "The distance between you and the lightning is:"
+            + distanceFromBolt * unitModifier
+            + unitText);
 
     do {
 
@@ -70,25 +73,15 @@ public class App {
       eTA = distanceFromBolt / cloudSpeed;
 
       //output the measurement plus the speed of the cloud and lastly the time it will take the cloud to reach you
-      switch (units) {
-        case 'M':
-          System.out.println(
-              "\nThe distance between you and the lightning is:" + distanceFromBolt
-                  + " meters.");
-          System.out.println(
-              "The cloud is moving at a speed of " + cloudSpeed + " meters per second");
-          break;
 
-        case 'F':
-          System.out.println(
-              "\nThe distance between you and the lightning is:"
-                  + distanceFromBolt * 3.2808399
-                  + " feet.");
-          System.out.println(
-              "The thundercloud is moving at a speed of " + cloudSpeed * 3.2808399
-                  + " feet per second");
-          break;
-      }
+      System.out.println(
+          "\nThe distance between you and the lightning is: "
+              + distanceFromBolt * unitModifier
+              + unitText);
+      System.out.println(
+          "The thundercloud is moving at a speed of " + cloudSpeed * unitModifier
+              + unitText + " per second");
+
       System.out.println(
           "If the thundercloud continues at this speed it will reach you in " + eTA
               + " seconds.");
